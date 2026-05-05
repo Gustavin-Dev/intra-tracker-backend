@@ -1,4 +1,4 @@
-package com.intratracker.backend.model;
+package com.intratracker.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
