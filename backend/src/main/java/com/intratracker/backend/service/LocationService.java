@@ -3,6 +3,7 @@ package com.intratracker.backend.service;
 import com.intratracker.backend.dto.request.CreateLocationRequestDTO;
 import com.intratracker.backend.dto.response.LocationResponseDTO;
 import com.intratracker.backend.entity.Location;
+import com.intratracker.backend.exception.NoLocationsFoundException;
 import com.intratracker.backend.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class LocationService {
     public LocationResponseDTO getLastLocation() {
         Location location = locationRepository
                 .findTopByOrderByTimestampDesc()
-                .orElseThrow(() -> new RuntimeException("Location not found"));
+                .orElseThrow(() -> new NoLocationsFoundException("No locations found."));
 
         return new LocationResponseDTO(
                 location.getBusId(),

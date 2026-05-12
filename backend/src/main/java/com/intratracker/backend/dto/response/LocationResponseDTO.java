@@ -15,7 +15,6 @@ public class LocationResponseDTO {
         this.longitude = longitude;
         this.timestamp = timestamp;
     }
-
     public LocationResponseDTO() {
     }
 
