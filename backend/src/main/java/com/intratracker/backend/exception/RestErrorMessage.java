@@ -4,7 +4,14 @@ import org.springframework.http.HttpStatus;
 
 public class RestErrorMessage {
     private String message;
+    private String details;
     private HttpStatus status;
+
+    public RestErrorMessage(String message, HttpStatus status, String details) {
+        this.message = message;
+        this.status = status;
+        this.details = details;
+    }
 
     public RestErrorMessage(String message, HttpStatus status) {
         this.message = message;
@@ -12,6 +19,14 @@ public class RestErrorMessage {
     }
 
     public RestErrorMessage() {
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public String getMessage() {

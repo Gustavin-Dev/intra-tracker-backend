@@ -3,7 +3,7 @@ package com.intratracker.backend.service;
 import com.intratracker.backend.dto.request.CreateLocationRequestDTO;
 import com.intratracker.backend.dto.response.LocationResponseDTO;
 import com.intratracker.backend.entity.Location;
-import com.intratracker.backend.exception.NoLocationsFoundException;
+import com.intratracker.backend.exception.ResourceNotFoundException;
 import com.intratracker.backend.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,23 +21,22 @@ public class LocationService {
         Location location = new Location();
         location.setLatitude(dto.getLatitude());
         location.setLongitude(dto.getLongitude());
-        location.setTimestamp(dto.getTimestamp());
-        location.setBusId(dto.getBusId());
+        location.setBusId("IntraCampus");
 
-        Location saveLocation = locationRepository.save(location);
+        Location savedLocation = locationRepository.save(location);
 
         return new LocationResponseDTO(
-                saveLocation.getBusId(),
-                saveLocation.getLatitude(),
-                saveLocation.getLongitude(),
-                saveLocation.getTimestamp()
+                savedLocation.getBusId(),
+                savedLocation.getLatitude(),
+                savedLocation.getLongitude(),
+                savedLocation.getTimestamp()
                 );
     }
 
     public LocationResponseDTO getLastLocation() {
         Location location = locationRepository
                 .findTopByOrderByTimestampDesc()
-                .orElseThrow(() -> new NoLocationsFoundException("No locations found."));
+                .orElseThrow(() -> new ResourceNotFoundException("No locations found."));
 
         return new LocationResponseDTO(
                 location.getBusId(),

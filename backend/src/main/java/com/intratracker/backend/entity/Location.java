@@ -16,7 +16,7 @@ public class Location {
     private double longitude;
     @Column(nullable = false)
     private LocalDateTime timestamp;
-    public Location(String busId, double latitude, double longitude, LocalDateTime timestamp) {}
+    public Location(String busId, double latitude, double longitude) {}
     public Location(){}
 
     public double getLatitude() {

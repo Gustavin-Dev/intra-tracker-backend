@@ -9,13 +9,28 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(NoLocationsFoundException.class)
-    private ResponseEntity<RestErrorMessage> noLocationsFoundException(NoLocationsFoundException exception) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    private ResponseEntity<RestErrorMessage> noLocationsFoundException(ResourceNotFoundException exception) {
 
         RestErrorMessage treatedResponse = new RestErrorMessage(
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND);
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(treatedResponse);
+        return ResponseEntity.status(treatedResponse.getStatus()).body(treatedResponse);
+    }
+
+    @ExceptionHandler(Exception.class)
+    private ResponseEntity<RestErrorMessage> genericException(
+            Exception exception) {
+
+        RestErrorMessage treatedResponse = new RestErrorMessage(
+                "Internal server error.",
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                exception.getMessage()
+        );
+
+        return ResponseEntity
+                .status(treatedResponse.getStatus())
+                .body(treatedResponse);
     }
 }
