@@ -1,15 +1,15 @@
 package com.intratracker.backend.dto.response;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class LocationResponseDTO {
 
     private String busId;
     private double latitude;
     private double longitude;
-    private LocalDateTime timestamp;
+    private Instant timestamp;
 
-    public LocationResponseDTO(String busId, double latitude, double longitude, LocalDateTime timestamp) {
+    public LocationResponseDTO(String busId, double latitude, double longitude, Instant timestamp) {
         this.busId = busId;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -42,11 +42,11 @@ public class LocationResponseDTO {
         this.longitude = longitude;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 }

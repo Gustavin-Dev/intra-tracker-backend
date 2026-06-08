@@ -1,5 +1,6 @@
 package com.intratracker.backend.dto.request;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public class CreateLocationRequestDTO {
@@ -7,20 +8,20 @@ public class CreateLocationRequestDTO {
     private String busId;
     private double latitude;
     private double longitude;
-    private LocalDateTime timestamp;
+    private Instant timestamp;
 
-    public CreateLocationRequestDTO(String busId, double latitude, double longitude, LocalDateTime timestamp) {
+    public CreateLocationRequestDTO(String busId, double latitude, double longitude, Instant timestamp) {
         this.busId = busId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.timestamp = timestamp;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -1,7 +1,9 @@
 package com.intratracker.backend.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "locations")
@@ -15,7 +17,7 @@ public class Location {
     private double latitude;
     private double longitude;
     @Column(nullable = false)
-    private LocalDateTime timestamp;
+    private Instant timestamp;
     public Location(String busId, double latitude, double longitude) {}
     public Location(){}
 
@@ -27,11 +29,11 @@ public class Location {
         this.latitude = latitude;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -53,6 +55,6 @@ public class Location {
 
     @PrePersist
     public void prePersist() {
-        this.timestamp = LocalDateTime.now().withNano(0);
+        this.timestamp = Instant.now().truncatedTo(ChronoUnit.SECONDS);
     }
 }

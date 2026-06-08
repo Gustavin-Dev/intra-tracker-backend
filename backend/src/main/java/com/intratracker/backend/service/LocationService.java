@@ -38,6 +38,7 @@ public class LocationService {
                 .findTopByOrderByTimestampDesc()
                 .orElseThrow(() -> new ResourceNotFoundException("No locations found."));
 
+
         return new LocationResponseDTO(
                 location.getBusId(),
                 location.getLatitude(),

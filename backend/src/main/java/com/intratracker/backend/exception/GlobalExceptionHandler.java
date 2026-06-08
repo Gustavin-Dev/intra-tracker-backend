@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    private ResponseEntity<RestErrorMessage> noLocationsFoundException(ResourceNotFoundException exception) {
+    private ResponseEntity<RestErrorMessage> HandleResourceNotFoundException(ResourceNotFoundException exception) {
 
         RestErrorMessage treatedResponse = new RestErrorMessage(
                 exception.getMessage(),
