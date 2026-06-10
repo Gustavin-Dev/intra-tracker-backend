@@ -13,11 +13,6 @@ public class RestErrorMessage {
         this.details = details;
     }
 
-    public RestErrorMessage(String message, HttpStatus status) {
-        this.message = message;
-        this.status = status;
-    }
-
     public RestErrorMessage() {
     }
 

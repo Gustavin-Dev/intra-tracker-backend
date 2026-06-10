@@ -36,7 +36,7 @@ public class LocationService {
     public LocationResponseDTO getLastLocation() {
         Location location = locationRepository
                 .findTopByOrderByTimestampDesc()
-                .orElseThrow(() -> new ResourceNotFoundException("No locations found."));
+                .orElseThrow(() -> new ResourceNotFoundException());
 
 
         return new LocationResponseDTO(

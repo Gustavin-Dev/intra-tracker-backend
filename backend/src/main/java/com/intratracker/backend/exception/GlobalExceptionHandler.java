@@ -13,8 +13,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<RestErrorMessage> HandleResourceNotFoundException(ResourceNotFoundException exception) {
 
         RestErrorMessage treatedResponse = new RestErrorMessage(
-                exception.getMessage(),
-                HttpStatus.NOT_FOUND);
+                "No locations found.",
+                HttpStatus.NOT_FOUND,
+                exception.getMessage());
 
         return ResponseEntity.status(treatedResponse.getStatus()).body(treatedResponse);
     }
