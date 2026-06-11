@@ -14,10 +14,16 @@ public class Location {
     private Long id;
 
     private String busId;
-    private double latitude;
-    private double longitude;
-    @Column(nullable = false)
-    private Instant timestamp;
+    private Double latitude;
+    private Double longitude;
+    private Double velocidade;
+    private Integer satelites;
+    @Column(name = "gps_Fix")
+    private Boolean gpsFix;
+    private Double hdop;
+    @Column(nullable = false, name = "created_at")
+    private Instant createdAt;
+
     public Location(String busId, double latitude, double longitude) {}
     public Location(){}
 
@@ -29,12 +35,8 @@ public class Location {
         this.latitude = latitude;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
+    public Instant getCreated_at() {
+        return createdAt;
     }
 
     public double getLongitude() {
@@ -53,8 +55,40 @@ public class Location {
         this.busId = busId;
     }
 
+    public Boolean getGps_fix() {
+        return gpsFix;
+    }
+
+    public void setGps_fix(Boolean gps_fix) {
+        this.gpsFix = gps_fix;
+    }
+
+    public Double getHdop() {
+        return hdop;
+    }
+
+    public void setHdop(Double hdop) {
+        this.hdop = hdop;
+    }
+
+    public Integer getSatelites() {
+        return satelites;
+    }
+
+    public void setSatelites(Integer satelites) {
+        this.satelites = satelites;
+    }
+
+    public Double getVelocidade() {
+        return velocidade;
+    }
+
+    public void setVelocidade(Double velocidade) {
+        this.velocidade = velocidade;
+    }
+
     @PrePersist
     public void prePersist() {
-        this.timestamp = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+        this.createdAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
     }
 }

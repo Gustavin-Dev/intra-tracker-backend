@@ -1,7 +1,7 @@
 package com.intratracker.backend.service;
 
-import com.intratracker.backend.dto.request.CreateLocationRequestDTO;
-import com.intratracker.backend.dto.response.LocationResponseDTO;
+import com.intratracker.backend.dto.request.CreateLocation;
+import com.intratracker.backend.dto.response.LocationResponse;
 import com.intratracker.backend.entity.Location;
 import com.intratracker.backend.exception.ResourceNotFoundException;
 import com.intratracker.backend.repository.LocationRepository;
@@ -17,33 +17,37 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    public LocationResponseDTO saveLocation(CreateLocationRequestDTO dto){
+    public LocationResponse saveLocation(CreateLocation dto){
         Location location = new Location();
-        location.setLatitude(dto.getLatitude());
-        location.setLongitude(dto.getLongitude());
+        location.setLatitude(dto.latitude());
+        location.setLongitude(dto.longitude());
+        location.setHdop(dto.hdop());
+        location.setSatelites(dto.satelites());
+        location.setVelocidade(dto.velocidade());
+        location.setGps_fix(dto.gpsFix());
         location.setBusId("IntraCampus");
 
         Location savedLocation = locationRepository.save(location);
 
-        return new LocationResponseDTO(
+        return new LocationResponse(
                 savedLocation.getBusId(),
                 savedLocation.getLatitude(),
                 savedLocation.getLongitude(),
-                savedLocation.getTimestamp()
+                savedLocation.getCreated_at()
                 );
     }
 
-    public LocationResponseDTO getLastLocation() {
+    public LocationResponse getLastLocation() {
         Location location = locationRepository
-                .findTopByOrderByTimestampDesc()
-                .orElseThrow(() -> new ResourceNotFoundException());
+                .findTopByOrderByCreatedAtDesc()
+                .orElseThrow(() -> new ResourceNotFoundException("No location found."));
 
 
-        return new LocationResponseDTO(
+        return new LocationResponse(
                 location.getBusId(),
                 location.getLatitude(),
                 location.getLongitude(),
-                location.getTimestamp()
+                location.getCreated_at()
                 );
     }
 }
