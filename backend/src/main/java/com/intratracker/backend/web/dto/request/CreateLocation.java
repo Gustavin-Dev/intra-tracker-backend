@@ -1,4 +1,4 @@
-package com.intratracker.backend.dto.request;
+package com.intratracker.backend.web.dto.request;
 
 import jakarta.validation.constraints.*;
 

@@ -1,8 +1,9 @@
-package com.intratracker.backend.controller;
+package com.intratracker.backend.web.controller;
 
-import com.intratracker.backend.dto.request.CreateLocation;
-import com.intratracker.backend.dto.response.LocationResponse;
-import com.intratracker.backend.service.LocationService;
+import com.intratracker.backend.application.useCases.LocationUseCases;
+import com.intratracker.backend.web.dto.request.CreateLocation;
+import com.intratracker.backend.web.dto.response.LocationResponse;
+import com.intratracker.backend.application.service.LocationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/locations")
 public class LocationController {
 
-    private final LocationService locationService;
+    private final LocationUseCases locationService;
 
-    public LocationController(LocationService locationService) {
+    public LocationController(LocationUseCases locationService) {
         this.locationService = locationService;
     }
 
