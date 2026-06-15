@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste STOMP</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #mensagens {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 300px;
+            overflow-y: auto;
+        }
+
+        .msg {
+            margin: 5px 0;
+            padding: 8px;
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Mensagens Recebidas</h2>
+
+<button onclick="conectar()">Conectar</button>
+
+<div id="status">Desconectado</div>
+
+<br>
+
+<div id="mensagens"></div>
+
+<script>
+let client;
+
+function adicionarMensagem(texto) {
+    const div = document.createElement("div");
+    div.className = "msg";
+    div.textContent = texto;
+
+    document.getElementById("mensagens").prepend(div);
+}
+
+function conectar() {
+
+    client = new StompJs.Client({
+        brokerURL: "ws://localhost:8080/ws",
+
+        reconnectDelay: 5000,
+
+        onConnect: () => {
+
+            document.getElementById("status").innerText =
+                "✅ Conectado";
+
+            client.subscribe("/topic/location", (message) => {
+
+                console.log("Recebido:", message.body);
+
+                adicionarMensagem(message.body);
+            });
+        },
+
+        onWebSocketError: (error) => {
+            console.error(error);
+
+            document.getElementById("status").innerText =
+                "❌ Erro WebSocket";
+        },
+
+        onStompError: (frame) => {
+            console.error(frame);
+
+            document.getElementById("status").innerText =
+                "❌ Erro STOMP";
+        }
+    });
+
+    client.activate();
+}
+</script>
+
+</body>
+</html>

@@ -30,4 +30,9 @@ public class LocationController {
     public ResponseEntity<LocationResponse> getLastLocation() {
         return ResponseEntity.ok(locationService.getLastLocation());
     }
+
+    @GetMapping("/test")
+    public String testEndpoint() {
+        return "success";
+    }
 }

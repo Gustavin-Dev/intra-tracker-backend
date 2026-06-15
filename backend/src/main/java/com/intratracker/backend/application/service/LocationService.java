@@ -21,6 +21,7 @@ public class LocationService implements LocationUseCases {
 
     private final LocationRepository locationRepository;
     private final RestTemplate restTemplate = new RestTemplate();
+    private final SimpMessagingTemplate messagingTemplate;
 
 
 
@@ -31,8 +32,9 @@ public class LocationService implements LocationUseCases {
     private String apiKey;
 
 
-    public LocationService(LocationRepository locationRepository) {
+    public LocationService(LocationRepository locationRepository, SimpMessagingTemplate messagingTemplate) {
         this.locationRepository = locationRepository;
+        this.messagingTemplate = messagingTemplate;
     }
 
     public LocationResponse saveLocation(CreateLocation dto){
@@ -46,6 +48,8 @@ public class LocationService implements LocationUseCases {
         location.setBusId("IntraCampus");
 
         Location savedLocation = locationRepository.save(location);
+
+        messagingTemplate.convertAndSend("/topic/location", savedLocation);
 
         return new LocationResponse(
                 savedLocation.getBusId(),
