@@ -6,7 +6,7 @@ import java.time.Instant;
 
 public record LocationResponse(
 
-        String id,
+        Long id,
         Double latitude,
         Double longitude,
 

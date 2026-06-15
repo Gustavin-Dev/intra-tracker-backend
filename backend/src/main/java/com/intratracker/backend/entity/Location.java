@@ -91,4 +91,36 @@ public class Location {
     public void prePersist() {
         this.createdAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Boolean getGpsFix() {
+        return gpsFix;
+    }
+
+    public void setGpsFix(Boolean gpsFix) {
+        this.gpsFix = gpsFix;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 }
