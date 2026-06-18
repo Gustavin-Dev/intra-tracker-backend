@@ -2,7 +2,7 @@ package com.intratracker.backend.web.mappers;
 
 import com.intratracker.backend.entity.Location;
 import com.intratracker.backend.web.dto.request.CreateLocationDto;
-import com.intratracker.backend.web.dto.response.LocationResponse;
+import com.intratracker.backend.web.dto.response.LocationResponseDto;
 
 public class LocationMapper {
 
@@ -26,11 +26,11 @@ public class LocationMapper {
         return location;
     }
 
-    public static LocationResponse toDto(Location location) {
+    public static LocationResponseDto toDto(Location location) {
         if (location == null) {
             return null;
         }
-        return new LocationResponse(
+        return new LocationResponseDto(
                 location.getId(),
                 location.getLatitude(),
                 location.getLongitude(),

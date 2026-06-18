@@ -1,7 +1,9 @@
 package com.intratracker.backend.application.service;
 
 import com.intratracker.backend.application.useCases.LocationUseCases;
+import com.intratracker.backend.entity.Device;
 import com.intratracker.backend.entity.Location;
+import com.intratracker.backend.repository.DeviceRepository;
 import com.intratracker.backend.repository.LocationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +16,7 @@ import org.springframework.web.client.RestTemplate;
 public class LocationService implements LocationUseCases {
 
     private final LocationRepository locationRepository;
-    private final RestTemplate restTemplate = new RestTemplate();
     private final SimpMessagingTemplate messagingTemplate;
-
-
 
     @Value("${supabase.url}")
     private String supabaseUrl;
@@ -25,9 +24,8 @@ public class LocationService implements LocationUseCases {
     @Value("${supabase.api.key}")
     private String apiKey;
 
-
-
-    public LocationService(LocationRepository locationRepository, SimpMessagingTemplate messagingTemplate) {
+    public LocationService(LocationRepository locationRepository,
+                           SimpMessagingTemplate messagingTemplate) {
         this.locationRepository = locationRepository;
         this.messagingTemplate = messagingTemplate;
     }

@@ -3,7 +3,7 @@ package com.intratracker.backend.web.controller;
 import com.intratracker.backend.application.useCases.LocationUseCases;
 import com.intratracker.backend.entity.Location;
 import com.intratracker.backend.web.dto.request.CreateLocationDto;
-import com.intratracker.backend.web.dto.response.LocationResponse;
+import com.intratracker.backend.web.dto.response.LocationResponseDto;
 import com.intratracker.backend.web.mappers.LocationMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class LocationController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<LocationResponse> saveLocation(@Valid @RequestBody CreateLocationDto dto) {
+    public ResponseEntity<LocationResponseDto> saveLocation(@Valid @RequestBody CreateLocationDto dto) {
 
         Location obj = locationService.saveLocation(LocationMapper.toEntity(dto));
         return ResponseEntity
