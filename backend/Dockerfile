@@ -1,15 +1,17 @@
-FROM ubuntu:latest AS build
+FROM maven:3.9.9-eclipse-temurin-23 AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-23-jdk -y
-COPY src .
+WORKDIR /app
 
-RUN apt-get install maven -y
+COPY . .
 
-RUN mvn clean install
+RUN mvn clean package -DskipTests
 
-FROM openjdk:23-jdk-slim
+FROM eclipse-temurin:23-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
-COPY --from=build /target/backend-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
