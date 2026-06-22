@@ -18,12 +18,6 @@ public class LocationService implements LocationUseCases {
     private final LocationRepository locationRepository;
     private final SimpMessagingTemplate messagingTemplate;
 
-    @Value("${supabase.url}")
-    private String supabaseUrl;
-
-    @Value("${supabase.api.key}")
-    private String apiKey;
-
     public LocationService(LocationRepository locationRepository,
                            SimpMessagingTemplate messagingTemplate) {
         this.locationRepository = locationRepository;
